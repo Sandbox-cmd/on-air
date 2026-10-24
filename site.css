@@ -1,0 +1,172 @@
+/* Sandbox · the Fable proposal, round ten, 24 Oct 2026: round eight's stylesheet with round nine's icon control, the 300/400 screens and the note's quiet additions at the end. One screen, the broadcast, scaled to the window: the original's shell, kept. */
+:root { --room: #0b0c0f; --ink: #f2ecdf; color-scheme: dark; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--room); color: var(--ink); overflow: hidden; padding-inline: 16px; box-sizing: border-box; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; }
+#room { position: relative; width: 100%; height: 100%; }
+#tv { position: absolute; left: 0; top: 0; transform-origin: 0 0; outline: none; }
+#tv:focus-visible { outline: none; }
+
+/* the way in: one layer over the site, owning one canvas; the glass (scanlines, vignette) stays above it */
+.fb-boot { position:absolute; inset:0; z-index:15; background:#050507; }
+.fb-boot .fb-bootcv { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.fb-boot .bdw-stop { z-index:2; }
+.fb-boot .bdw-stop .smile, .fb-boot .bdw-stop .l1, .fb-boot .bdw-stop .l2 { visibility:hidden; }
+.fb-boot .bdw-stop.s1 .smile, .fb-boot .bdw-stop.s2 .l1, .fb-boot .bdw-stop.s3 .l2 { visibility:visible; animation:bdwwipe 240ms steps(8) backwards; }
+.fb-boot .bdw-stop.is-rm .smile, .fb-boot .bdw-stop.is-rm .l1, .fb-boot .bdw-stop.is-rm .l2 { animation:none; }
+.fb-boot .bdw-ctl { z-index:3; }
+.fb-boot.is-done { display:none; }
+
+/* the ground lifts where the pointer passes: a second canvas over the dither, under the page */
+.fb-lift { position:absolute; left:0; top:0; width:100%; height:100%; display:block; pointer-events:none; }
+
+/* composition: the original grid, with room for a page that has no plate */
+.bdw-page { overflow:auto; scrollbar-width:none; }
+.bdw-page::-webkit-scrollbar { display:none; }
+.bdw-comp.fb-wide { grid-template-columns:minmax(0, 1fr); }
+.bdw .stmt .fb-sub { font-size:36px; line-height:1.15; margin-top:10px; letter-spacing:-.012em; font-variation-settings:'opsz' 48; color:rgba(242,236,223,.92); }
+.bdw .stmt.fb-one { font-size:92px; line-height:1; }
+.bdw .para + .para { margin-top:18px; }
+.bdw .para.fb-lead { font-size:23px; line-height:1.45; max-width:640px; }
+.bdw .kick .sub { color:var(--y); }
+.bdw .kick .sep { opacity:.5; margin:0 4px; }
+
+/* the small row: page, subpage, the way back in, sound */
+.bdw-small .fb-turn { display:inline-flex; align-items:center; gap:10px; }
+.bdw-small button.fb-arrow { text-decoration:none; font:400 14px/1 var(--mono); padding:2px 6px; border:1px solid rgba(242,236,223,.3); min-height:24px; }
+.bdw-small button.fb-arrow:disabled { opacity:.3; cursor:default; }
+
+/* plates: the same object, with new bodies. A screen in the plate is black, like the set's own */
+.bdw-dlg .fb-screen { display:block; width:100%; height:150px; background:#000; margin:0 0 10px; touch-action:pan-y; }
+.bdw-dlg .fb-screen.is-held { cursor:grabbing; }
+.bdw-dlg .fb-screen.fb-forms { cursor:default; }
+.bdw-dlg .row .w small { display:block; font-size:12px; font-weight:400; color:var(--pink2); margin-top:2px; line-height:1.35; }
+.bdw-dlg .row.is-sel .w small, .bdw-dlg .row:hover .w small, .bdw-dlg .row:focus-visible .w small { color:#cfd3ff; }
+.bdw-dlg .row .n.fb-sq { width:26px; height:26px; display:inline-flex; align-items:center; justify-content:center; color:#050507; }
+.bdw-dlg .row.fb-stage { grid-template-columns:40px 1fr auto; align-items:center; min-height:62px; }
+.bdw-dlg .row.fb-stage .w { font-size:17px; }
+.bdw-dlg .row.fb-stage em { display:inline-block; width:10px; height:10px; border:1px solid rgba(10,10,10,.5); }
+.bdw-dlg .row.fb-stage.is-sel em, .bdw-dlg .row.fb-stage:hover em, .bdw-dlg .row.fb-stage:focus-visible em { background:var(--y); border-color:var(--y); }
+.bdw-dlg .fb-formshint { margin:12px 0 0; padding:12px 12px 0; border-top:1px solid var(--prule); font-size:12px; line-height:1.45; color:var(--pink2); }
+.bdw-dlg .kv { display:grid; grid-template-columns:112px 1fr; gap:6px 14px; padding:10px 12px; font-size:14px; line-height:1.5; }
+.bdw-dlg .fb-screen + .kv { border-top:1px solid var(--prule); }
+.bdw-dlg .kv + .kv { border-top:1px solid var(--prule); }
+.bdw-dlg .kv b { font-weight:600; color:var(--pacc); font-size:12px; letter-spacing:.03em; text-transform:lowercase; padding-top:3px; }
+.bdw-dlg .fb-nav { display:flex; justify-content:space-between; gap:12px; margin:14px 0 0; padding:14px 12px 0; border-top:1px solid var(--prule); font-size:14px; }
+.bdw-dlg .fb-nav a { color:var(--pacc); text-decoration:none; text-underline-offset:4px; min-height:24px; display:inline-flex; align-items:center; gap:6px; }
+.bdw-dlg .fb-nav a:hover, .bdw-dlg .fb-nav a:focus-visible { text-decoration:underline; }
+.bdw-dlg .fb-say { margin:0; padding:12px 12px 4px; font-size:15px; line-height:1.5; }
+.bdw-dlg .fb-say b { display:block; font:400 28px/1.15 var(--say); letter-spacing:-.015em; margin-bottom:10px; color:#0a0a0a; }
+
+/* the form, inside the plate */
+.bdw-dlg form { display:flex; flex-direction:column; gap:12px; padding:4px 12px 0; }
+.bdw-dlg label { display:flex; flex-direction:column; gap:5px; font-size:12px; font-weight:600; color:var(--pacc); letter-spacing:.03em; }
+.bdw-dlg input, .bdw-dlg textarea { font:400 15px/1.45 var(--mono); color:#0a0a0a; background:#dedcd6; border:0; border-bottom:2px solid #0a0a0a; padding:8px 10px; width:100%; box-sizing:border-box; border-radius:0; }
+.bdw-dlg textarea { min-height:124px; resize:vertical; }
+.bdw-dlg input:focus-visible, .bdw-dlg textarea:focus-visible { outline:3px solid var(--cobalt); outline-offset:0; background:#f2ecdf; }
+.bdw-dlg .fb-send { align-self:flex-start; font:500 15px/1 var(--mono); color:var(--cream); background:#0a0a0a; padding:12px 18px; min-height:44px; box-shadow:4px 4px 0 var(--cobalt); }
+.bdw-dlg .fb-send:hover, .bdw-dlg .fb-send:focus-visible { background:var(--cobalt); box-shadow:4px 4px 0 #0a0a0a; }
+.bdw-dlg .fb-send:active { transform:translate(2px,2px); box-shadow:2px 2px 0 #0a0a0a; }
+.bdw-dlg .fb-sendrow { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+.bdw-dlg .fb-pre { font-size:12px; line-height:1.4; color:#0a0a0a; opacity:.72; max-width:260px; }
+.bdw-dlg .fb-note { margin:12px 12px 0; padding:12px; background:#0a0a0a; color:var(--cream); font-size:14px; line-height:1.5; }
+.bdw-dlg .fb-note b { color:var(--y); display:block; font-weight:600; margin-bottom:4px; }
+.bdw-dlg .fb-note.is-warn { background:none; color:#0a0a0a; border:1px dashed rgba(10,10,10,.5); }
+.bdw-dlg .fb-note[hidden] { display:none; }
+
+/* the note: a letter, read across two columns */
+.fb-note-page { max-width:1180px; }
+.fb-note-page .fb-cols { columns:2; column-gap:56px; margin:26px 0 0; }
+.fb-note-page .fb-cols p { margin:0 0 16px; font:400 19px/1.52 var(--say); color:rgba(242,236,223,.93); break-inside:avoid; text-wrap:pretty; }
+.fb-note-page .fb-sign { margin:10px 0 0; font:400 15px/1.5 var(--mono); color:var(--y); display:flex; align-items:center; gap:14px; }
+.fb-note-page .fb-sign .tt { color:var(--cream); }
+.fb-note-page .fb-sign i { display:inline-block; width:40px; height:2px; background:var(--y); }
+
+/* tablet: a third board, 1040 × 720, so a window between the phone and the desktop keeps the type readable */
+.bdw--tablet .bdw-glass { width:1040px; height:720px; border-radius:20px; }
+.bdw--tablet .bdw-fx { background:repeating-linear-gradient(0deg, rgba(0,0,0,.1) 0 1px, transparent 1px 3px), radial-gradient(ellipse at 50% 48%, transparent 64%, rgba(0,0,0,.36) 100%); box-shadow:inset 0 0 50px rgba(0,0,0,.4); }
+.bdw--tablet .bdw-ctl { flex-direction:column; align-items:stretch; width:92px; right:12px; bottom:14px; gap:6px; }
+.bdw--tablet .bdw-ctl button { font-size:12px; padding:7px 8px; text-align:left; }
+.bdw--tablet .bdw-hdr { height:38px; font-size:16px; padding:0 22px; gap:18px; }
+.bdw--tablet .bdw-band { height:18px; }
+.bdw--tablet .bdw-keys { height:48px; }
+.bdw--tablet .bdw-keys .k { font-size:16px; padding:0 16px; gap:10px; }
+.bdw--tablet .bdw-keys .k i { width:13px; height:13px; }
+.bdw--tablet .bdw-page { padding:0 48px 44px; }
+.bdw--tablet .bdw-comp { grid-template-columns:minmax(0, 1fr) 400px; gap:44px; }
+.bdw--tablet .bdw-comp.fb-wide { grid-template-columns:minmax(0, 1fr); }
+.bdw--tablet .kick { font-size:13px; }
+.bdw--tablet .stmt { font-size:46px; margin-top:22px; }
+.bdw--tablet .stmt.fb-one { font-size:68px; }
+.bdw--tablet .stmt .fb-sub { font-size:27px; margin-top:8px; }
+.bdw--tablet .para { font-size:17px; margin-top:20px; max-width:520px; }
+.bdw--tablet .para.fb-lead { font-size:19px; }
+.bdw--tablet .para + .para { margin-top:12px; }
+.bdw--tablet .aside { font-size:14px; margin-top:16px; }
+.bdw--tablet .bdw-small { left:48px; right:48px; bottom:12px; font-size:12px; gap:20px; }
+.bdw--tablet .bdw-dlg .pl { padding:36px 22px 20px; }
+.bdw--tablet .bdw-dlg .fb-screen { height:130px; }
+.bdw--tablet .bdw-dlg .row { padding:8px 10px; }
+.bdw--tablet .bdw-dlg .row .w { font-size:15px; }
+.bdw--tablet .bdw-dlg .row.fb-stage { min-height:54px; }
+.bdw--tablet .bdw-dlg .row.fb-stage .w { font-size:15px; }
+.bdw--tablet .bdw-dlg .kv { grid-template-columns:96px 1fr; padding:8px 10px; font-size:13px; }
+.bdw--tablet .bdw-dlg .fb-say { font-size:14px; }
+.bdw--tablet .bdw-dlg textarea { min-height:96px; }
+.bdw--tablet .fb-note-page .stmt { font-size:40px; margin-top:14px; }
+.bdw--tablet .fb-note-page .fb-cols { column-gap:36px; margin-top:14px; }
+.bdw--tablet .fb-note-page .fb-cols p { font-size:15px; line-height:1.45; margin-bottom:10px; }
+.bdw--tablet .fb-note-page .fb-sign { margin-top:6px; font-size:13px; }
+.bdw--tablet .fb-note-page .aside { margin-top:10px; }
+.bdw--tablet .bdw-stop { padding:96px 110px 0; }
+.bdw--tablet .bdw-stop .smile { font-size:150px; margin-bottom:34px; }
+.bdw--tablet .bdw-stop .l1, .bdw--tablet .bdw-stop .l2 { font-size:42px; }
+
+/* the phone board scrolls inside the set and has no scrollbar: one small line at the foot says there is more, until the reader moves */
+.fb-more { position:absolute; left:0; right:0; bottom:10px; margin:0; text-align:center; font-size:11px; color:rgba(242,236,223,.85); pointer-events:none; z-index:3; opacity:0; transition:opacity .2s; }
+.fb-more .tt { background:rgba(5,5,7,.72); padding:4px 4px 4px 8px; }
+.fb-more i { display:inline-block; width:0; height:0; border-left:4px solid transparent; border-right:4px solid transparent; border-top:6px solid rgba(242,236,223,.85); margin-left:-2px; vertical-align:middle; background:rgba(5,5,7,.72); box-shadow:0 -4px 0 4px rgba(5,5,7,.72); }
+.fb-more.is-on { opacity:1; }
+@media (prefers-reduced-motion: reduce) { .fb-more { transition:none; } }
+
+/* phone */
+.bdw--phone .stmt.fb-one { font-size:58px; }
+/* 48 on the board is 44 on the glass: the 390 board is scaled by 358/390 inside the shell's 16px side padding */
+.bdw--phone .bdw-small button.fb-arrow { min-height:48px; min-width:48px; display:inline-flex; align-items:center; justify-content:center; font-size:18px; }
+.bdw--phone .bdw-small button { min-height:48px; display:inline-flex; align-items:center; }
+.bdw--phone .stmt .fb-sub { display:block; font-size:24px; margin-top:6px; }
+.bdw--phone .stmt .fb-sub::after { content:none; }
+.bdw--phone .para.fb-lead { font-size:18px; }
+.bdw--phone .bdw-dlg .fb-screen { height:112px; }
+.bdw--phone .bdw-dlg .kv { grid-template-columns:1fr; gap:2px; }
+.bdw--phone .bdw-dlg .row.fb-stage { grid-template-columns:34px 1fr auto; }
+.bdw--phone .fb-note-page .fb-cols { columns:1; }
+.bdw--phone .fb-note-page .fb-cols p { font-size:17px; }
+.bdw--phone .bdw-dlg textarea { min-height:100px; }
+.bdw--phone .bdw-small .fb-turn { width:100%; justify-content:space-between; }
+
+@media (prefers-reduced-motion: reduce) { .bdw .pr, .bdw .pr2 { animation:none !important; } .bdw-dlg .fb-send:active { transform:none; } }
+
+/* round nine → ten: the sound control is one icon, in the way in's corner and in every page's small row. No words on it; the label is for the screen reader.
+   Touch: the visible square keeps its weight (50 on the board; 36 in the small row; 48 there on the phone) and a transparent halo (::after, 7 px) carries the
+   hit area, so after the shell's scale (0.93 on a 1000 px tablet window, 0.92 on the 390 phone) the target is still 44 px or more on the glass. */
+button.fb-snd { position:relative; display:inline-flex; align-items:center; justify-content:center; width:50px; height:50px; min-height:50px; padding:0; margin:0; border:1px solid rgba(242,236,223,.22); background:rgba(5,5,7,.55); color:var(--cream); opacity:.6; transition:opacity .2s; cursor:pointer; border-radius:0; }
+button.fb-snd::after { content:''; position:absolute; inset:-7px; }
+button.fb-snd:hover, button.fb-snd:focus-visible { opacity:1; }
+button.fb-snd:focus-visible { outline:2px solid var(--y); outline-offset:2px; }
+button.fb-snd[data-desired="off"] { opacity:.9; color:rgba(242,236,223,.55); }
+button.fb-snd[data-live="false"][data-desired="on"] svg { animation:fb-sndwait 1.2s steps(2) infinite; }
+button.fb-snd:disabled { cursor:default; opacity:.35; }
+@keyframes fb-sndwait { 50% { opacity:.45; } }
+.bdw-ctl.fb-bootctl { width:auto; align-items:flex-end; }
+.bdw--desktop .bdw-ctl.fb-bootctl, .bdw--tablet .bdw-ctl.fb-bootctl { width:auto; }
+.bdw-small button.fb-snd { text-decoration:none; margin-left:auto; width:36px; height:36px; min-height:36px; opacity:.55; }
+.bdw-small button.fb-snd svg { width:18px; height:18px; }
+.bdw--phone .bdw-small button.fb-snd { margin-left:0; width:48px; height:48px; min-height:48px; }
+/* the screens on 300 and 400 are plate screens like the others */
+.bdw-dlg .fb-screen.fb-wrong, .bdw-dlg .fb-screen.fb-page { cursor:default; }
+.bdw-dlg .fb-screen.fb-page { margin-bottom:14px; }
+/* the note: the signature's rule draws itself, the fold between the columns is a dotted line; nothing else moves on a letter */
+.fb-note-page .fb-cols { column-rule:1px dotted rgba(242,236,223,.25); }
+.fb-note-page .fb-sign i { animation:fb-rule 600ms steps(8) both; transform-origin:0 50%; }
+@keyframes fb-rule { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .fb-note-page .fb-sign i { animation:none; } button.fb-snd[data-live="false"][data-desired="on"] svg { animation:none; opacity:.6; } }
