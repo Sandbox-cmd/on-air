@@ -2,18 +2,22 @@
 
 The Sandbox website: https://sandbox-cmd.github.io/on-air/
 
-Owner-approved round eleven, published from `main` at the repository root through GitHub Pages. The selected copy is the default. Page numbers are hash routes, including `#200`, `#200/2`, `#300/2`, and `#400`. Unknown routes use the no-signal screen.
+Owner-approved Earth Now experience, published from `main` at the repository root through GitHub Pages.
 
 ## Release source
 
-The runtime comes from the approved `experience-fable-r11-2026-10-24` local study. Only runtime files are published; review benches, recordings and workshop documents stay local. The production HTML adds canonical/social metadata and removes the study's noindex directive. The existing social image and 404 redirect are retained.
+Runtime comes from `experience-opus-integrated-2026-10-25`, including the parent-reviewed phone scroll cue. Production HTML restores canonical and sharing metadata and removes local noindex. The social image and 404 redirect are retained. Only runtime, asset licences, and this release record are published; studies and QA evidence stay local.
 
-The previous public version is commit `ab60f14b3afd7430ca07513c8ce44e4c446378e6`. The engine and approved copy remain unchanged from the study.
+Previous public release: `6ed07078a2983b1c3c9d01c4490e0fac90a0d955`.
 
-## Local review
+## Routes and behaviour
 
-Serve this directory with `python3 -m http.server 8795` and open http://127.0.0.1:8795/. `?intro=1` replays the opening; `?rm=1` uses reduced motion. Fonts load from Google Fonts.
+Channels: `#100`, `#200`, `#210`, `#220`, `#230`, `#300`, `#310`, `#400`. Previous subpage addresses redirect to their new channels. Unknown numbers show no signal. A plain first visit plays the opening once per tab; deep links go straight to the page. `?intro=1` replays the opening and `?rm=1` reduces motion.
 
-Sound is requested on by default; browsers can require a gesture before it plays. The icon mutes it and remembers the choice.
+Fonts are served locally with their OFL licences. Land data includes its source licence. Sound is requested on by default; browsers can require a gesture before it plays. The icon mutes it and remembers the choice.
 
-The contact form has no delivery service. Its visible disclosure and not-sent result are intentional; it keeps entered words in the page and makes no submission request.
+The contact form has no delivery service. Its visible disclosure and not-sent result are intentional; it retains entered words and makes no submission request.
+
+## Review
+
+Serve this directory with a static HTTP server. The local source contains the behaviour suite and release evidence. Real iOS Safari and an independent listening pass remain unverified.

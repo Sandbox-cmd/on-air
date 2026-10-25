@@ -1,0 +1,88 @@
+/* Sandbox on air · integrated candidate · 25 October 2026 · channels.css
+   Only what this site adds to round eleven's stylesheets (engine/bootleg-v3.css, engine/site.css, both unchanged): one shape
+   for every channel with a programme (words left, the programme right edge to edge; on a phone the programme first), the
+   channel strip, the landing's later print, and the tablet and phone boards.
+   Cleaned from round two's studies.css (which carried the first study's rules twice); no review bench here. */
+
+:root { color-scheme: dark; }
+.os-board { position:absolute; left:0; top:0; transform-origin:0 0; outline:none; }
+.os-board .bdw-site { position:absolute; inset:0; display:flex; flex-direction:column; }
+.os-board .bdw-page { overflow:hidden; }
+.bdw--phone.os-board .bdw-page { overflow-y:auto; overscroll-behavior:contain; }
+.os-snow { position:absolute; left:0; top:0; width:100%; height:100%; display:block; pointer-events:none; z-index:4; }
+.os-pic { display:block; background:#000; image-rendering:pixelated; }
+.os-pic:focus-visible { outline:3px solid var(--y); outline-offset:-3px; }
+
+/* the print-in is round eleven's (bdwrow: a stepped clip-path wipe, 260 ms in four steps). A clip-path also clips hit-testing, and
+   so does a mask (tried, and measured in Chrome), so the wipe stays as it was and site.js finds a still-printing target by its box
+   (see "print-in" in site.js; checked in qa/behaviour.mjs) */
+/* the landing after the way in: the world is already there; the words print round it a beat later */
+.bdw-page.os-land.is-print .pr { animation-delay:calc(520ms + var(--i, 14) * 52ms); }
+
+/* the channel strip: the kicker line is the channel and its subchannels, the current one lit in the channel's key colour */
+.bdw .kick.os-strip { gap:6px; flex-wrap:wrap; }
+.os-strip .bdw-mark { margin-right:6px; }
+.os-strip .os-sc { display:inline-flex; align-items:center; gap:8px; min-height:30px; padding:0 9px; text-decoration:none; color:rgba(242,236,223,.82); border:1px solid rgba(242,236,223,.18); }
+.os-strip--g .os-sc .n { color:var(--g); } .os-strip--y .os-sc .n { color:var(--y); }
+.os-strip .os-sc:hover:not(.is-on) { background:#15161c; color:var(--cream); }
+.os-strip--g .os-sc.is-on { background:var(--g); border-color:var(--g); color:#050507; }
+.os-strip--y .os-sc.is-on { background:var(--y); border-color:var(--y); color:#050507; }
+.os-strip .os-sc.is-on .n { color:#050507; }
+
+/* every channel with a programme: the programme on the right, edge to edge; the words keep round eleven's measure on the left */
+.os-chan { position:relative; height:100%; }
+.os-chan .os-prog { position:absolute; top:0; right:-72px; bottom:-58px; width:620px; background:#000; overflow:hidden; }
+.os-words { height:100%; max-width:690px; display:flex; flex-direction:column; justify-content:center; }
+.os-words .stmt { margin-top:22px; }
+.os-chan--100 .os-words .stmt { margin-top:28px; }
+.os-chan--200 .stmt, .os-chan--300 .stmt { font-size:58px; }
+.os-chan--300 .para { font-size:18px; margin-top:14px; }
+.os-chan--300 .para.fb-lead { font-size:20px; }
+.os-chan--200 .para + .para { margin-top:16px; }
+.bdw .aside.os-log { font-size:15px; margin-top:14px; color:rgba(242,236,223,.9); max-width:600px; line-height:1.45; }
+.bdw .aside.os-log + .os-log { margin-top:6px; }
+.bdw .aside.os-log b { font-weight:500; color:var(--y); margin-right:4px; }
+.bdw--desktop .os-ch100 .bdw-small, .bdw--desktop .os-ch200 .bdw-small, .bdw--desktop .os-ch210 .bdw-small, .bdw--desktop .os-ch220 .bdw-small,
+.bdw--desktop .os-ch230 .bdw-small, .bdw--desktop .os-ch300 .bdw-small { right:692px; }
+.os-ch310 .fb-note-page .stmt { margin-top:22px; }
+
+/* a channel with no signal: the engine's picture and caption, and a small row so its hiss can be muted */
+.bdw-small.os-offsmall { left:auto; right:24px; bottom:18px; z-index:3; }
+.bdw-small.os-offsmall button[data-act="replay"] { background:#000; padding:4px 8px; }
+
+/* the tablet board (1040 × 720, round eleven's): the programme is 492 × 616 */
+.bdw--tablet .os-chan .os-prog { right:-48px; bottom:-44px; width:492px; }
+.bdw--tablet .os-words { max-width:450px; }
+.bdw--tablet .os-words .stmt { font-size:40px; margin-top:16px; }
+.bdw--tablet .os-chan--100 .os-words .stmt { font-size:60px; margin-top:20px; }
+.bdw--tablet .os-chan--300 .para, .bdw--tablet .os-chan--200 .para { font-size:15px; margin-top:10px; }
+.bdw--tablet .os-chan .para.fb-lead { font-size:17px; }
+.bdw--tablet .bdw .aside.os-log, .bdw--tablet .aside.os-log { font-size:13px; }
+.bdw--tablet .os-ch100 .bdw-small, .bdw--tablet .os-ch200 .bdw-small, .bdw--tablet .os-ch210 .bdw-small, .bdw--tablet .os-ch220 .bdw-small,
+.bdw--tablet .os-ch230 .bdw-small, .bdw--tablet .os-ch300 .bdw-small { right:540px; }
+
+/* the tablet's 400: the form's plate fits the shorter screen, and the small row stays clear of it */
+.bdw--tablet .os-400 .bdw-dlg .fb-screen { height:112px; }
+.bdw--tablet .os-400 .bdw-dlg textarea { min-height:70px; }
+.bdw--tablet .os-400 .bdw-dlg form { gap:8px; }
+.bdw--tablet .os-400 .bdw-dlg .pl { padding-top:32px; padding-bottom:16px; }
+.bdw--tablet .os-ch400 .bdw-small { right:470px; }
+
+/* the phone: the programme first, full width, then the words; the board's height follows the screen */
+.bdw--phone .os-strip .os-sc { min-height:48px; padding:0 10px; }
+.bdw--phone .os-chan { height:auto; }
+.bdw--phone .os-chan .os-prog { position:relative; inset:auto; margin:-26px -20px 22px; width:390px; height:488px; }
+.bdw--phone .os-chan--100 .os-prog { height:420px; }
+.bdw--phone .os-words { height:auto; display:block; max-width:none; }
+.bdw--phone .os-words .stmt, .bdw--phone .os-chan--200 .stmt, .bdw--phone .os-chan--300 .stmt { font-size:34px; margin-top:16px; }
+.bdw--phone .os-chan--100 .os-words .stmt { font-size:44px; }
+.bdw--phone .os-chan--300 .para { font-size:16px; }
+.bdw--phone .bdw .aside.os-log, .bdw--phone .aside.os-log { font-size:13px; }
+.bdw--phone .bdw-small.os-offsmall { position:absolute; margin:0; right:12px; bottom:auto; top:12px; }
+
+/* Keep the scroll cue outside the reading viewport. The strip stays reserved when
+   the cue fades, so beginning to scroll never changes the page's geometry. */
+.bdw--phone.os-board .bdw-scr:not(.is-off) .bdw-page { bottom:28px; }
+.bdw--phone.os-board .fb-more { bottom:0; height:28px; display:flex; align-items:center; justify-content:center; gap:4px; background:var(--k); }
+.bdw--phone.os-board .fb-more .tt { padding:0; background:none; }
+.bdw--phone.os-board .fb-more i { margin:0; background:none; box-shadow:none; }
